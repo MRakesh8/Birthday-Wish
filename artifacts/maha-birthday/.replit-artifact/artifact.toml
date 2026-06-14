@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Maha's Birthday Surprise"
+version = "1.0.0"
+id = "artifacts/maha-birthday"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23760
+
+[services.development]
+run = "pnpm --filter @workspace/maha-birthday run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/maha-birthday", "run", "build" ]
+publicDir = "artifacts/maha-birthday/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23760"
+BASE_PATH = "/"

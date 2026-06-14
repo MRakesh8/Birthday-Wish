@@ -1,0 +1,162 @@
+Create a premium romantic interactive birthday surprise website for a girl named Maha.
+
+The website should work perfectly on both mobile and desktop with a luxury romantic design.
+
+Theme:
+
+- Pink love theme
+- Soft gradients
+- Luxury aesthetic
+- Romantic animations
+- Smooth transitions
+- Emotional cinematic experience
+- Use elegant fonts and glowing effects
+
+Opening Experience:
+
+When the website opens, show a slow cinematic loading animation.
+
+A realistic diamond ring should appear in the center:
+
+- Ring slowly rotates
+- Diamond sparkles realistically
+- Loading should feel slow and magical
+- Background should have soft pink lights and floating hearts
+
+After loading:
+
+- A realistic Men hand/finger animation should appear
+- The finger should gently pick up the diamond ring
+- The camera should zoom out smoothly
+
+Then display:
+
+"Will you marry me? 💍"
+
+Show two buttons:
+
+YES ❤️
+
+AFFIRMATIVE 💖
+
+When either button is clicked:
+
+- Show a realistic female hand animation
+- The diamond ring should be placed on the finger
+- Add sparkle effects and romantic music transition
+
+Name Input Section:
+
+After the ring scene, show:
+
+"Enter your name ❤️"
+
+Create small alphabet boxes below the input area.
+
+Allow maximum 04 letters.
+
+When the user enters the correct name:
+
+MAHA
+
+Show each letter separately with animated cards:
+
+M -
+"You're sooo much important to me"
+
+A -
+"You're my happy memories"
+
+H -
+"You're my favourite person"
+
+A -
+"I will never ever leave you"
+
+If the user enters another name:
+Show:
+
+"Enter your name letter"
+
+Only reveal the surprise for Maha.
+
+Emotional Memory Page:
+
+After entering Maha:
+
+Show a full-screen background image uploaded by the user.
+
+Add:
+
+- Blur glass effect
+- Slow zoom animation
+- Romantic atmosphere
+
+Display these Tamil emotional lines with typing animation:
+
+தவறு என்று தெரிந்த பின் எதற்கு கேக்கவேண்டும் மன்னிப்பு!!!
+
+நன்றி கூறினேன் நீ என்னை ரசித்ததுற்கு
+
+வேண்டாம் என்று தான் சொன்னார்கள் ஏனோ தெரியவில்லை மனம் திரும்ப சேர துடிக்கிறது
+
+உறக்கத்திலும் என் உதடு சிரிக்கிறது
+
+காத்திருந்த எனக்கு தான் தெரியும் நீ வரமாட்டாய் என்று
+
+நான் காத்திருந்த போது வராத நீ நான் இடத்தை விட்டு சென்ற பின் அலைபேசியில் அழைக்கிறாயே அதற்கு காரணம்!!!
+
+அலைபேசியில் இரண்டு வார்த்தை பேசிவிட்டு Sorry என்று செய்தி அனுப்புவது எதற்கு
+
+முதலில் உன்னை பார்த்ததும் முடிவில் உன்னை பார்த்ததும் சிறு தொலைவில் தான்
+
+நான் உன்னை முதலில் பார்த்ததும் ரசிக்க தொடங்கினேன் உன்னுடைய அசைவுகளால்
+
+Add a "Next" button.
+
+Birthday Reveal Page:
+
+When Next is clicked:
+
+Create a beautiful birthday reveal scene.
+
+Show:
+
+"Happy Birthday Maha ❤️"
+
+Use:
+
+- User uploaded background image
+- Heart animations
+- Confetti
+- Glow effects
+
+Music Player Section:
+
+Create a circular music player in the center.
+
+Features:
+
+- Circular frame containing Maha's image
+- Play button in the middle
+- Smooth rotating animation while music plays
+- User will upload the song file:
+  "Wanna Be Yours"
+
+When the song finishes:
+Show Next button.
+
+Final Page:
+
+After clicking Next:
+
+Display:
+
+"Thank you Maha ❤️"
+
+Add:
+
+- Falling hearts
+- Romantic particles
+- Photo slideshow
+- Luxury pink background
