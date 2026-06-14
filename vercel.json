@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm install && pnpm --filter @workspace/maha-birthday run build",
+  "outputDirectory": "artifacts/maha-birthday/dist/public",
+  "installCommand": "npm install -g pnpm@latest",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "env": {
+    "BASE_PATH": "/",
+    "NODE_ENV": "production"
+  }
+}
