@@ -1,159 +1,98 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSharedState } from "../SharedState";
 
 export function Scene7MusicPlayer({ onComplete }: { onComplete: () => void }) {
-  const { backgroundImage } = useSharedState();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioSrc, setAudioSrc] = useState<string | null>(null);
-  const [playerImage, setPlayerImage] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const imageInputRef = useRef<HTMLInputElement>(null);
+  const { backgroundImage, isPlaying, playAudio, pauseAudio, changeAudioSource } = useSharedState();
+  const playerImage = '/play-song.png';
 
   useEffect(() => {
-    if (audioSrc) {
-      if (!audioRef.current) {
-        audioRef.current = new Audio(audioSrc);
-        audioRef.current.addEventListener('ended', onComplete);
-      } else {
-        audioRef.current.src = audioSrc;
-      }
-      
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-      }
-    }
-    
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.removeEventListener('ended', onComplete);
-      }
-    };
-  }, [audioSrc, onComplete]);
+    changeAudioSource('/I-Wanna-Be-Yours-Arctic-Monkeys-_-__-Lyrics-Status-Video-_-__-_shorts-_lyrics-_foryou_MP3_160K_.mp3.mp3.mpeg', true);
+  }, [changeAudioSource]);
 
   const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        audioRef.current.play();
-        setIsPlaying(true);
-      }
-    }
-  };
-
-  const handleAudioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setAudioSrc(url);
-    }
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setPlayerImage(url);
+    if (isPlaying) {
+      pauseAudio();
+    } else {
+      playAudio();
     }
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 flex items-center justify-center z-10 p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 1.5 } }}
       exit={{ opacity: 0, transition: { duration: 1.5 } }}
     >
-      <div className="absolute inset-0 z-0 overflow-hidden bg-background">
+      {/* Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         {backgroundImage ? (
-          <div 
-            className="w-full h-full bg-cover bg-center opacity-30"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
+          <img
+            src={backgroundImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-30"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-900 via-rose-950 to-black" />
+          <div className="w-full h-full bg-gradient-to-br from-stone-700 via-stone-600 to-stone-800" />
         )}
       </div>
 
       <div className="relative z-10 flex flex-col items-center">
-        {/* Circular Player */}
-        <div className="relative w-72 h-72 md:w-80 md:h-80 mb-8 flex items-center justify-center">
-          {/* Animated rings */}
-          <motion.div 
-            className="absolute inset-0 rounded-full border-2 border-dashed border-rose-400/50"
+
+        {/* Circular Player — responsive size */}
+        <div className="relative mb-6 sm:mb-8 flex items-center justify-center"
+          style={{ width: 'min(72vw, 288px)', height: 'min(72vw, 288px)' }}
+        >
+          {/* Spinning dashed ring */}
+          <motion.div
+            className="absolute inset-0 rounded-full border-2 border-dashed border-amber-400/60"
             animate={{ rotate: isPlaying ? 360 : 0 }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           />
-          <motion.div 
-            className="absolute inset-[-10px] rounded-full border border-pink-300/30"
-            animate={{ 
+          {/* Pulse ring */}
+          <motion.div
+            className="absolute rounded-full border border-amber-300/30"
+            style={{ inset: -10 }}
+            animate={{
               scale: isPlaying ? [1, 1.05, 1] : 1,
-              opacity: isPlaying ? [0.5, 0.8, 0.5] : 0.5
+              opacity: isPlaying ? [0.4, 0.8, 0.4] : 0.4
             }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          {/* Image container */}
-          <div 
-            className="w-[90%] h-[90%] rounded-full overflow-hidden relative shadow-[0_0_30px_rgba(255,100,150,0.4)] group cursor-pointer"
+          {/* Image + tap to play/pause — always shows overlay on mobile */}
+          <button
             onClick={togglePlay}
+            className="w-[90%] h-[90%] rounded-full overflow-hidden relative shadow-[0_0_30px_rgba(200,140,40,0.5)] focus:outline-none"
+            style={{ aspectRatio: '1' }}
           >
-            {playerImage ? (
-              <img src={playerImage} alt="Player" className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full bg-rose-900/50 flex items-center justify-center">
-                <span className="text-6xl opacity-50">♥</span>
-              </div>
-            )}
-            
-            {/* Play/Pause overlay */}
-            <div className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+            <img src={playerImage} alt="Player" className="w-full h-full object-cover" />
+
+            {/* Overlay — always visible on touch, fades on play */}
+            <div className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}>
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center text-white">
                 {isPlaying ? (
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                  <svg className="w-7 h-7 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 ) : (
-                  <svg className="w-8 h-8 ml-2" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <svg className="w-7 h-7 sm:w-8 sm:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 )}
               </div>
             </div>
-          </div>
-        </div>
-
-        <h2 className="font-script text-4xl md:text-5xl text-white glow-gold mb-8">
-          Wanna Be Yours ♥
-        </h2>
-
-        <div className="flex flex-col gap-4 items-center">
-          <div className="flex gap-4">
-            <input type="file" accept="audio/*" className="hidden" ref={fileInputRef} onChange={handleAudioUpload} />
-            <button 
-              onClick={() => fileInputRef.current?.click()}
-              className="px-6 py-2 rounded-full bg-white/10 border border-white/20 text-white font-sans text-sm backdrop-blur-sm hover:bg-white/20 transition-all"
-            >
-              Upload Song ♥
-            </button>
-            
-            <input type="file" accept="image/*" className="hidden" ref={imageInputRef} onChange={handleImageUpload} />
-            <button 
-              onClick={() => imageInputRef.current?.click()}
-              className="px-6 py-2 rounded-full bg-white/10 border border-white/20 text-white font-sans text-sm backdrop-blur-sm hover:bg-white/20 transition-all"
-            >
-              Upload Photo
-            </button>
-          </div>
-
-          <button 
-            onClick={onComplete}
-            className="mt-6 text-pink-300/60 hover:text-pink-300 font-sans text-sm transition-colors border-b border-transparent hover:border-pink-300"
-          >
-            Skip ♥
           </button>
         </div>
+
+        <h2 className="font-serif italic font-light text-3xl sm:text-4xl md:text-5xl text-white glow-text mb-6 sm:mb-8 text-center px-4 tracking-wide">
+          Our Song ♥
+        </h2>
+
+        <button
+          onClick={onComplete}
+          className="px-8 py-3 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif font-bold tracking-widest text-base sm:text-lg shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all active:scale-95"
+          style={{ marginBottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))' }}
+        >
+          Thank you ♥
+        </button>
       </div>
     </motion.div>
   );

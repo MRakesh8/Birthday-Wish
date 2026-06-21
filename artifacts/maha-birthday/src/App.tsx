@@ -8,7 +8,6 @@ import { Scene4Letters } from "./components/scenes/Scene4Letters";
 import { Scene5Memories } from "./components/scenes/Scene5Memories";
 import { Scene6Birthday } from "./components/scenes/Scene6Birthday";
 import { Scene7MusicPlayer } from "./components/scenes/Scene7MusicPlayer";
-import { Scene8Final } from "./components/scenes/Scene8Final";
 import { AnimatePresence } from "framer-motion";
 
 function AppContent() {
@@ -17,7 +16,17 @@ function AppContent() {
   const nextScene = () => setCurrentScene(prev => prev + 1);
 
   return (
-    <div className="relative w-full h-screen bg-background overflow-hidden selection:bg-pink-500/30">
+    <div className="relative w-full h-[100dvh] bg-background overflow-hidden selection:bg-pink-500/30">
+      {/* Global Background Image (GB.jpeg) */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img
+          src="/GB.jpeg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center bg-zoom"
+        />
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+      </div>
+
       <FloatingHearts />
       <AnimatePresence mode="wait">
         {currentScene === 1 && <Scene1Loading key="scene1" onComplete={nextScene} />}
@@ -26,8 +35,7 @@ function AppContent() {
         {currentScene === 4 && <Scene4Letters key="scene4" onComplete={nextScene} />}
         {currentScene === 5 && <Scene5Memories key="scene5" onComplete={nextScene} />}
         {currentScene === 6 && <Scene6Birthday key="scene6" onComplete={nextScene} />}
-        {currentScene === 7 && <Scene7MusicPlayer key="scene7" onComplete={nextScene} />}
-        {currentScene === 8 && <Scene8Final key="scene8" />}
+        {currentScene === 7 && <Scene7MusicPlayer key="scene7" onComplete={() => setCurrentScene(1)} />}
       </AnimatePresence>
     </div>
   );

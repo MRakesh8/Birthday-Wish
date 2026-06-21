@@ -1,66 +1,88 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { DiamondRing } from "../DiamondRing";
 
 export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
-  const [burst, setBurst] = useState(false);
+  const [showTransitionVideo, setShowTransitionVideo] = useState(false);
 
   const handleClick = () => {
-    setBurst(true);
-    setTimeout(() => {
-      onComplete();
-    }, 1500);
+    setShowTransitionVideo(true);
   };
 
+  if (showTransitionVideo) {
+    return (
+      <motion.div
+        className="absolute inset-0 z-20 bg-black flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 1.5 } }}
+      >
+        <video
+          src="/proposal-success.mp4"
+          autoPlay
+          playsInline
+          onEnded={onComplete}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </motion.div>
+    );
+  }
+
   return (
-    <motion.div 
-      className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 text-center"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1, transition: { duration: 1 } }}
-      exit={{ opacity: 0, scale: 1.05, transition: { duration: 1.5 } }}
+    <motion.div
+      className="absolute inset-0 z-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+      exit={{ opacity: 0, transition: { duration: 1.5 } }}
     >
-      <h1 className="font-serif italic text-5xl md:text-7xl text-white mb-8 glow-gold">
-        Will you marry me?
-      </h1>
-      
-      <div className="mb-12 relative">
-        <DiamondRing className="scale-125" />
-        {burst && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 bg-white rounded-full shadow-[0_0_10px_#fff]"
-                initial={{ x: 0, y: 0, opacity: 1 }}
-                animate={{ 
-                  x: Math.cos(i * 30 * Math.PI / 180) * 150, 
-                  y: Math.sin(i * 30 * Math.PI / 180) * 150, 
-                  opacity: 0 
-                }}
-                transition={{ duration: 1, ease: "easeOut" }}
-              />
-            ))}
-          </div>
-        )}
+      {/* Full-screen background video */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        <video
+          src="/gold-ring-animation.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Subtle dark overlay so text stays readable */}
+        <div className="absolute inset-0 bg-black/30" />
       </div>
-      
-      <div className="flex flex-col sm:flex-row gap-6 items-center">
-        <button 
-          onClick={handleClick}
-          className="relative px-8 py-4 rounded-full bg-gradient-to-r from-[#e6c17a] to-[#ff9a9e] text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(255,150,150,0.5)] hover:shadow-[0_0_30px_rgba(255,150,150,0.8)] transition-all duration-300 hover:scale-105 active:scale-95 animate-pulse"
+
+      {/* Content on top */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-between px-6 text-center pt-10 sm:pt-14 pb-12 sm:pb-16">
+
+        {/* Top — Title */}
+        <motion.h1
+          className="font-serif italic text-3xl sm:text-5xl md:text-6xl text-white glow-gold leading-tight w-full text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
-          <span className="relative z-10">YES ♥</span>
-          <div className="absolute inset-0 rounded-full bg-white/20 opacity-0 hover:opacity-100 transition-opacity"></div>
-        </button>
-        
-        <button 
-          onClick={handleClick}
-          className="relative px-8 py-4 rounded-full bg-gradient-to-r from-[#ff4e50] to-[#f9d423] text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(255,100,100,0.5)] hover:shadow-[0_0_30px_rgba(255,100,100,0.8)] transition-all duration-300 hover:scale-105 active:scale-95 animate-pulse"
-          style={{ animationDelay: '0.5s' }}
+          Will you marry me?
+        </motion.h1>
+
+        {/* Bottom — Buttons */}
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full max-w-xs sm:max-w-none"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1 }}
         >
-          <span className="relative z-10">AFFIRMATIVE ♥</span>
-          <div className="absolute inset-0 rounded-full bg-white/20 opacity-0 hover:opacity-100 transition-opacity"></div>
-        </button>
+          <button
+            onClick={handleClick}
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all duration-300 hover:scale-105 active:scale-95"
+          >
+            YES ♥
+          </button>
+
+          <button
+            onClick={handleClick}
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-stone-600 to-amber-700 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(140,100,30,0.5)] hover:shadow-[0_0_35px_rgba(140,100,30,0.8)] transition-all duration-300 hover:scale-105 active:scale-95"
+          >
+            AFFIRMATIVE ♥
+          </button>
+        </motion.div>
+
       </div>
     </motion.div>
   );

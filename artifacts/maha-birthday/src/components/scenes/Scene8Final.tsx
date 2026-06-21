@@ -63,7 +63,7 @@ export function Scene8Final() {
 
       <div className="relative z-10 flex flex-col items-center w-full max-w-2xl">
         <motion.h1 
-          className="font-script text-6xl md:text-8xl text-white glow-gold mb-2"
+          className="font-serif italic font-light text-5xl md:text-7xl text-white glow-text mb-2 tracking-wide"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}

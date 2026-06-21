@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Lato:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Great+Vibes&family=Noto+Serif+Tamil:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -31,49 +31,84 @@
 }
 
 :root {
-  --background: 340 60% 8%;
-  --foreground: 0 0% 95%;
-  --border: 340 40% 25%;
-  --input: 340 40% 25%;
-  --ring: 340 70% 55%;
+  /* Warm gray background — matching the image */
+  --background: 30 8% 52%;
+  --foreground: 0 0% 98%;
+  --border: 33 30% 40%;
+  --input: 33 30% 40%;
+  --ring: 33 70% 42%;
 
-  --card: 340 50% 15%;
-  --card-foreground: 0 0% 95%;
-  --card-border: 340 40% 30%;
+  /* Card: slightly darker warm gray */
+  --card: 30 10% 42%;
+  --card-foreground: 0 0% 98%;
+  --card-border: 33 25% 50%;
 
-  --primary: 340 70% 55%;
-  --primary-foreground: 0 0% 95%;
+  /* Primary: rich bronze/amber gold */
+  --primary: 33 72% 40%;
+  --primary-foreground: 0 0% 98%;
 
-  --muted: 340 30% 20%;
-  --muted-foreground: 340 20% 70%;
+  --muted: 30 10% 45%;
+  --muted-foreground: 30 10% 75%;
 
-  --accent: 340 50% 30%;
-  --accent-foreground: 0 0% 95%;
+  --accent: 33 60% 35%;
+  --accent-foreground: 0 0% 98%;
 
-  --app-font-sans: 'Lato', sans-serif;
-  --app-font-serif: 'Playfair Display', serif;
+  /* Fonts */
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Cormorant Garamond', serif;
   --font-script: 'Great Vibes', cursive;
-  --radius: 1rem;
+  --font-tamil: 'Noto Serif Tamil', serif;
+  --radius: 0.75rem;
 }
 
 body {
-  @apply font-sans antialiased bg-background text-foreground overflow-hidden;
+  font-family: var(--app-font-sans);
+  @apply antialiased bg-background text-foreground;
+  letter-spacing: 0.01em;
+  /* Use overflow clip instead of hidden so child elements can still scroll on iOS */
+  overflow: hidden;
+  overscroll-behavior: none;
+  /* Fix full height on mobile browsers */
+  height: 100dvh;
+  width: 100dvw;
 }
 
+/* Tamil professional font class */
+.font-tamil {
+  font-family: var(--font-tamil);
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+/* Glass card — warm gray tone */
 .glass-card {
-  background: rgba(80, 20, 40, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 180, 200, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  background: rgba(100, 85, 70, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(210, 170, 100, 0.25);
+  box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.3);
 }
 
-.glow-text {
-  text-shadow: 0 0 15px rgba(255, 200, 220, 0.6), 0 0 30px rgba(255, 100, 150, 0.4);
+/* Mobile-safe scrollable container */
+.scroll-safe {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
+/* Bronze/gold glow for script headings */
 .glow-gold {
-  text-shadow: 0 0 15px rgba(255, 220, 150, 0.8), 0 0 30px rgba(255, 180, 50, 0.5);
+  text-shadow:
+    0 0 20px rgba(200, 140, 40, 0.9),
+    0 0 50px rgba(180, 110, 20, 0.5);
+}
+
+/* Soft warm glow for serif text */
+.glow-text {
+  text-shadow:
+    0 0 15px rgba(220, 185, 120, 0.7),
+    0 0 35px rgba(190, 140, 60, 0.4);
 }
 
 .diamond-sparkle {
@@ -81,29 +116,54 @@ body {
 }
 
 @keyframes pulse-sparkle {
-  0% { opacity: 0.6; transform: scale(0.9) rotate(0deg); }
-  100% { opacity: 1; transform: scale(1.1) rotate(45deg); filter: drop-shadow(0 0 10px white); }
+  0%   { opacity: 0.6; transform: scale(0.9) rotate(0deg); }
+  100% { opacity: 1;   transform: scale(1.1) rotate(45deg); filter: drop-shadow(0 0 8px rgba(210,160,50,0.9)); }
 }
 
 @keyframes float-up {
-  0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.8; }
-  100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+  0%   { transform: translateY(100dvh) scale(0.5); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-20dvh) scale(1.2); opacity: 0; }
 }
 
 .heart-float {
   position: absolute;
-  animation: float-up 10s linear infinite;
-  color: hsl(var(--primary));
-  opacity: 0.6;
-  text-shadow: 0 0 10px rgba(255,100,150,0.5);
+  animation: float-up 12s linear infinite;
+  color: hsl(33 72% 50%);
+  opacity: 0.5;
+  text-shadow: 0 0 10px rgba(200,140,40,0.5);
 }
 
 .bg-zoom {
   animation: bg-zoom 20s infinite alternate ease-in-out;
 }
 @keyframes bg-zoom {
-  0% { transform: scale(1); }
+  0%   { transform: scale(1); }
   100% { transform: scale(1.05); }
 }
+
+/* Scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 3D Card Flip Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Card flip animation */
+.flipped-y {
+  transform: rotateY(180deg);
+}
+

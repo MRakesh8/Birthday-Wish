@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Open Maha Birthday App",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "preLaunchTask": "Start Dev Server"
+    },
+    {
+      "name": "Open in Simple Browser",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/.vscode/open-browser.js",
+      "preLaunchTask": "Start Dev Server"
+    }
+  ]
+}

@@ -102,71 +102,36 @@ export function Scene6Birthday({ onComplete }: { onComplete: () => void }) {
       animate={{ opacity: 1, transition: { duration: 1.5 } }}
       exit={{ opacity: 0, transition: { duration: 1.5 } }}
     >
-      <div className="absolute inset-0 z-0 overflow-hidden bg-background">
-        {backgroundImage ? (
-          <div 
-            className="w-full h-full bg-cover bg-center"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-rose-950 via-pink-900 to-rose-950" />
-        )}
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        <video
+          src="/hbd-animation.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       <canvas ref={canvasRef} className="absolute inset-0 z-10 pointer-events-none" />
 
-      <div className="relative z-20 flex flex-col items-center justify-center text-center p-8">
-        <div className="relative p-12">
-          {/* Glowing circular border */}
-          <motion.div 
-            className="absolute inset-0 rounded-full border border-pink-400/30"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-          />
-          <motion.div 
-            className="absolute inset-4 rounded-full border border-rose-300/20"
-            initial={{ scale: 1.2, opacity: 0 }}
-            animate={{ scale: [1, 0.9, 1], opacity: [0.2, 0.6, 0.2] }}
-            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 0.5 }}
-          />
-
-          <motion.h1 
-            className="font-script text-6xl md:text-8xl text-white glow-gold mb-4"
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
+      <motion.div
+        className="absolute left-0 right-0 z-20 flex justify-center"
+        style={{ bottom: 'max(2.5rem, env(safe-area-inset-bottom, 2.5rem))' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showNext ? 1 : 0 }}
+        transition={{ duration: 1 }}
+      >
+        {showNext && (
+          <button
+            onClick={onComplete}
+            className="px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-serif tracking-wide text-base sm:text-lg shadow-[0_0_20px_rgba(255,100,150,0.5)] hover:shadow-[0_0_30px_rgba(255,100,150,0.8)] transition-all active:scale-95"
           >
-            Happy Birthday
-          </motion.h1>
-          
-          <motion.h2 
-            className="font-serif text-5xl md:text-7xl text-pink-100 glow-text"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-          >
-            Maha <span className="text-pink-500 animate-pulse inline-block">♥</span>
-          </motion.h2>
-        </div>
-
-        <motion.div 
-          className="mt-12 h-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showNext ? 1 : 0 }}
-          transition={{ duration: 1 }}
-        >
-          {showNext && (
-            <button
-              onClick={onComplete}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-serif tracking-wide text-lg shadow-[0_0_20px_rgba(255,100,150,0.5)] hover:shadow-[0_0_30px_rgba(255,100,150,0.8)] transition-all hover:scale-105 active:scale-95"
-            >
-              Next ♥
-            </button>
-          )}
-        </motion.div>
-      </div>
+            Next ♥
+          </button>
+        )}
+      </motion.div>
     </motion.div>
   );
 }

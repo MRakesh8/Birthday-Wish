@@ -1,64 +1,71 @@
+import { motion } from "framer-motion";
+
 export function DiamondRing({ className = "" }: { className?: string }) {
   return (
-    <div className={`relative flex items-center justify-center ${className}`}>
-      {/* Sparkles */}
-      <div className="absolute top-[-20px] diamond-sparkle text-white opacity-80" style={{ animationDelay: '0s', fontSize: '1.5rem' }}>✨</div>
-      <div className="absolute top-[10px] right-[-10px] diamond-sparkle text-white opacity-60" style={{ animationDelay: '0.5s', fontSize: '1rem' }}>✨</div>
-      <div className="absolute top-[10px] left-[-10px] diamond-sparkle text-white opacity-70" style={{ animationDelay: '1s', fontSize: '1.2rem' }}>✨</div>
-      
-      <svg
-        width="100"
-        height="120"
-        viewBox="0 0 100 120"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="drop-shadow-[0_0_15px_rgba(255,200,220,0.8)]"
-        style={{ transformStyle: 'preserve-3d', animation: 'spin-ring 10s infinite linear' }}
+    <div className={`relative flex items-center justify-center ${className}`} style={{ width: 220, height: 220 }}>
+
+      {/* Soft ambient glow */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: 160, height: 160,
+          background: "radial-gradient(circle, rgba(200,150,40,0.3) 0%, transparent 70%)",
+          top: "50%", left: "50%", transform: "translate(-50%,-50%)",
+        }}
+        animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0.9, 0.4] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Floating + gentle sway */}
+      <motion.div
+        animate={{ y: [0, -14, 0], rotate: [-1.5, 1.5, -1.5] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <style>
-          {`
-            @keyframes spin-ring {
-              from { transform: rotateY(0deg); }
-              to { transform: rotateY(360deg); }
-            }
-          `}
-        </style>
-        
-        {/* Ring Band */}
-        <ellipse cx="50" cy="70" rx="40" ry="30" stroke="url(#goldGrad)" strokeWidth="6" fill="transparent" />
-        <ellipse cx="50" cy="70" rx="36" ry="26" stroke="url(#goldGradLight)" strokeWidth="2" fill="transparent" />
-        
-        {/* Diamond Base */}
-        <polygon points="50,55 35,35 65,35" fill="url(#diamondGrad)" stroke="#fff" strokeWidth="0.5" />
-        
-        {/* Diamond Top */}
-        <polygon points="35,35 40,25 60,25 65,35" fill="url(#diamondTopGrad)" stroke="#fff" strokeWidth="0.5" />
-        <polygon points="40,25 50,30 60,25" fill="#fff" opacity="0.6" />
-        <polygon points="35,35 50,30 50,55" fill="#e0f7fa" opacity="0.4" />
-        <polygon points="65,35 50,30 50,55" fill="#b2ebf2" opacity="0.4" />
-        
-        <defs>
-          <linearGradient id="goldGrad" x1="0" y1="0" x2="100" y2="120" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#F9D423" />
-            <stop offset="50%" stopColor="#FF4E50" />
-            <stop offset="100%" stopColor="#F9D423" />
-          </linearGradient>
-          <linearGradient id="goldGradLight" x1="0" y1="0" x2="100" y2="120" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#FFF2B2" />
-            <stop offset="50%" stopColor="#FFB2B2" />
-            <stop offset="100%" stopColor="#FFF2B2" />
-          </linearGradient>
-          <linearGradient id="diamondGrad" x1="50" y1="35" x2="50" y2="55" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="100%" stopColor="#b2ebf2" />
-          </linearGradient>
-          <linearGradient id="diamondTopGrad" x1="35" y1="25" x2="65" y2="35" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="50%" stopColor="#e0f7fa" />
-            <stop offset="100%" stopColor="#ffffff" />
-          </linearGradient>
-        </defs>
-      </svg>
+        <img
+          src="/ring.webp"
+          alt="Diamond Ring"
+          style={{
+            width: 180,
+            height: 180,
+            objectFit: "contain",
+            filter: "drop-shadow(0 8px 24px rgba(180,130,20,0.6)) drop-shadow(0 0 14px rgba(255,220,80,0.45))",
+          }}
+        />
+      </motion.div>
+
+      {/* Sparkle particles */}
+      {[
+        { x: -70, y: -50, size: 18, delay: 0,   dur: 2.5 },
+        { x:  75, y: -40, size: 13, delay: 0.7, dur: 3   },
+        { x: -75, y:  20, size: 10, delay: 1.3, dur: 2.8 },
+        { x:  80, y:  25, size: 15, delay: 0.4, dur: 3.2 },
+        { x:   0, y: -80, size: 20, delay: 0.9, dur: 2.2 },
+        { x: -35, y:  70, size:  9, delay: 1.8, dur: 3.5 },
+        { x:  40, y:  68, size: 11, delay: 1.1, dur: 2.9 },
+      ].map((s, i) => (
+        <motion.div
+          key={i}
+          className="absolute pointer-events-none select-none text-amber-200"
+          style={{ left: "50%", top: "50%", marginLeft: s.x, marginTop: s.y, fontSize: s.size }}
+          animate={{ opacity: [0, 1, 0], scale: [0.4, 1.2, 0.4], rotate: [0, 180, 360] }}
+          transition={{ duration: s.dur, delay: s.delay, repeat: Infinity, ease: "easeInOut" }}
+        >
+          ✦
+        </motion.div>
+      ))}
+
+      {/* Diamond flash shimmer */}
+      <motion.div
+        className="absolute pointer-events-none"
+        style={{
+          width: 7, height: 7, borderRadius: "50%",
+          background: "white",
+          boxShadow: "0 0 14px 7px rgba(255,255,255,0.95)",
+          top: "22%", left: "52%", marginLeft: -3,
+        }}
+        animate={{ opacity: [0, 1, 0], scale: [0.5, 1.8, 0.5] }}
+        transition={{ duration: 2, repeat: Infinity, delay: 0.6, ease: "easeInOut" }}
+      />
     </div>
   );
 }

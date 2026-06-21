@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { DiamondRing } from "../DiamondRing";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSharedState } from "../SharedState";
 
 export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
   const [text, setText] = useState("");
+  const [showButton, setShowButton] = useState(false);
+  const { playAudio, changeAudioSource } = useSharedState();
   const fullText = "For you, Maha...";
+
+  useEffect(() => {
+    changeAudioSource('/love-reels.mp3', false);
+  }, [changeAudioSource]);
 
   useEffect(() => {
     let i = 0;
@@ -13,35 +19,54 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
       i++;
       if (i >= fullText.length) {
         clearInterval(interval);
+        setTimeout(() => {
+          setShowButton(true);
+        }, 500);
       }
     }, 150);
-    
-    const timeout = setTimeout(() => {
-      onComplete();
-    }, 7000);
+    return () => { clearInterval(interval); };
+  }, []);
 
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
-  }, [onComplete]);
+  const handleStart = () => {
+    playAudio();
+    onComplete();
+  };
 
   return (
-    <motion.div 
-      className="absolute inset-0 flex flex-col items-center justify-center z-10"
+    <motion.div
+      className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 1.5 } }}
     >
-      <div className="absolute top-0 left-0 w-64 h-64 bg-pink-500/20 rounded-full blur-[100px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-rose-500/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
-      
-      <DiamondRing className="mb-12 scale-150" />
-      
-      <h1 className="font-script text-4xl md:text-5xl text-white glow-gold h-12">
+
+      <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 bg-amber-500/20 rounded-full blur-[80px] animate-pulse z-10" />
+      <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-amber-700/20 rounded-full blur-[80px] animate-pulse z-10" style={{ animationDelay: '2s' }} />
+
+      <h1 className="font-serif italic font-light text-3xl sm:text-4xl md:text-5xl text-white glow-text text-center tracking-wide mt-2 z-20">
         {text}
-        <span className="animate-pulse">|</span>
+        {!showButton && <span className="animate-pulse">|</span>}
       </h1>
+
+      <AnimatePresence>
+        {showButton && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mt-8 z-20"
+          >
+            <button
+              onClick={handleStart}
+              className="px-8 py-3 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif tracking-widest text-base sm:text-lg shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all hover:scale-105 active:scale-95"
+            >
+              Open ♥
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
+

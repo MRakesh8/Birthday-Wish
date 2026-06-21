@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  // Port forwarding — VS Code will auto-detect and forward port 5173
+  "remote.autoForwardPorts": true,
+  "remote.autoForwardPortsSource": "process",
+
+  // Simple Browser opens at this port
+  "livePreview.portNumber": 5173,
+  "livePreview.serverRoot": "${workspaceFolder}/artifacts/maha-birthday/dist/public",
+
+  // Files to hide in explorer
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": false,
+    "**/dist": false
+  }
+}
