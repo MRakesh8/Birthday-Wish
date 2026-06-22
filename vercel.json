@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm install && pnpm --filter @workspace/maha-birthday run build",
+  "buildCommand": "pnpm install && pnpm -w run build:vercel",
   "outputDirectory": "dist",
   "installCommand": "npm install -g pnpm@latest",
   "framework": null,
