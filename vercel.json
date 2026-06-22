@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "pnpm install && pnpm --filter @workspace/maha-birthday run build",
-  "outputDirectory": "artifacts/maha-birthday/dist",
+  "outputDirectory": "dist",
   "installCommand": "npm install -g pnpm@latest",
   "framework": null,
   "rewrites": [
