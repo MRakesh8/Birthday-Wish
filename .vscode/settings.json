@@ -10,7 +10,7 @@
 
   // Simple Browser opens at this port
   "livePreview.portNumber": 5173,
-  "livePreview.serverRoot": "${workspaceFolder}/artifacts/maha-birthday/dist/public",
+  "livePreview.serverRoot": "${workspaceFolder}/artifacts/maha-birthday/dist",
 
   // Files to hide in explorer
   "files.exclude": {
