@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSharedState } from "../SharedState";
 
@@ -7,6 +7,7 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
   const [showButton, setShowButton] = useState(false);
   const { playAudio, changeAudioSource } = useSharedState();
   const fullText = "For you, Maha...";
+  const buttonTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     changeAudioSource('/love-reels.mp3', false);
@@ -19,12 +20,17 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
       i++;
       if (i >= fullText.length) {
         clearInterval(interval);
-        setTimeout(() => {
+        buttonTimeoutRef.current = setTimeout(() => {
           setShowButton(true);
         }, 500);
       }
     }, 150);
-    return () => { clearInterval(interval); };
+    return () => {
+      clearInterval(interval);
+      if (buttonTimeoutRef.current) {
+        clearTimeout(buttonTimeoutRef.current);
+      }
+    };
   }, []);
 
   const handleStart = () => {
@@ -69,4 +75,3 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
     </motion.div>
   );
 }
-

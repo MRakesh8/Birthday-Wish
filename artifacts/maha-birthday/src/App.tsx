@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import { SharedStateProvider } from "./components/SharedState";
 import { FloatingHearts } from "./components/FloatingHearts";
 import { Scene1Loading } from "./components/scenes/Scene1Loading";
@@ -8,12 +8,30 @@ import { Scene4Letters } from "./components/scenes/Scene4Letters";
 import { Scene5Memories } from "./components/scenes/Scene5Memories";
 import { Scene6Birthday } from "./components/scenes/Scene6Birthday";
 import { Scene7MusicPlayer } from "./components/scenes/Scene7MusicPlayer";
+import { Scene8Final } from "./components/scenes/Scene8Final";
 import { AnimatePresence } from "framer-motion";
+
+const TOTAL_SCENES = 8;
 
 function AppContent() {
   const [currentScene, setCurrentScene] = useState(1);
+  // Ref guard prevents double-advance when onComplete fires multiple times
+  const isTransitioning = useRef(false);
 
-  const nextScene = () => setCurrentScene(prev => prev + 1);
+  const nextScene = useCallback(() => {
+    if (isTransitioning.current) return; // Block double-calls
+    isTransitioning.current = true;
+
+    setCurrentScene(prev => {
+      const next = prev + 1;
+      return next > TOTAL_SCENES ? TOTAL_SCENES : next; // Clamp to max
+    });
+
+    // Reset guard after animation completes
+    setTimeout(() => {
+      isTransitioning.current = false;
+    }, 300);
+  }, []);
 
   return (
     <div className="relative w-full h-[100dvh] bg-background overflow-hidden selection:bg-pink-500/30">
@@ -35,7 +53,8 @@ function AppContent() {
         {currentScene === 4 && <Scene4Letters key="scene4" onComplete={nextScene} />}
         {currentScene === 5 && <Scene5Memories key="scene5" onComplete={nextScene} />}
         {currentScene === 6 && <Scene6Birthday key="scene6" onComplete={nextScene} />}
-        {currentScene === 7 && <Scene7MusicPlayer key="scene7" onComplete={() => setCurrentScene(1)} />}
+        {currentScene === 7 && <Scene7MusicPlayer key="scene7" onComplete={nextScene} />}
+        {currentScene === 8 && <Scene8Final key="scene8" />}
       </AnimatePresence>
     </div>
   );

@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 
 export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   const [showTransitionVideo, setShowTransitionVideo] = useState(false);
+  const hasCompleted = useRef(false);
 
   const handleClick = () => {
     setShowTransitionVideo(true);
+  };
+
+  const handleVideoEnded = () => {
+    if (hasCompleted.current) return; // Prevent double-fire
+    hasCompleted.current = true;
+    onComplete();
   };
 
   if (showTransitionVideo) {
@@ -19,9 +26,10 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
         <video
           src="/proposal-success.mp4"
           autoPlay
+          muted
           playsInline
-          onEnded={onComplete}
-          className="absolute inset-0 w-full h-full object-cover"
+          onEnded={handleVideoEnded}
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
       </motion.div>
     );

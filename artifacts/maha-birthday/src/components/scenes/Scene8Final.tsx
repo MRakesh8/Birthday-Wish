@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Scene8Final() {
   const [photos, setPhotos] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const blobUrlsRef = useRef<string[]>([]);
 
   useEffect(() => {
     if (photos.length <= 1) return;
@@ -14,13 +15,35 @@ export function Scene8Final() {
     return () => clearInterval(interval);
   }, [photos.length]);
 
+  // Cleanup blob URLs on unmount to prevent memory leak
+  useEffect(() => {
+    return () => {
+      blobUrlsRef.current.forEach(url => URL.revokeObjectURL(url));
+    };
+  }, []);
+
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      const newPhotos = Array.from(files).map(file => URL.createObjectURL(file));
+      const newPhotos = Array.from(files).map(file => {
+        const url = URL.createObjectURL(file);
+        blobUrlsRef.current.push(url); // Track for cleanup
+        return url;
+      });
       setPhotos(prev => [...prev, ...newPhotos]);
     }
   };
+
+  // Generate heart positions once (stable across re-renders)
+  const heartPositions = useMemo(() => {
+    return Array.from({ length: 30 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      fontSize: `${Math.random() * 2 + 0.5}rem`,
+      animationDuration: `${Math.random() * 10 + 10}s`,
+      animationDelay: `${Math.random() * 10}s`,
+    }));
+  }, []);
 
   const displayPhotos = photos.length > 0 ? photos : [null, null, null];
 
@@ -35,16 +58,16 @@ export function Scene8Final() {
       
       {/* Falling Hearts */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {Array.from({ length: 30 }).map((_, i) => (
+        {heartPositions.map((heart) => (
           <div
-            key={i}
+            key={heart.id}
             className="absolute text-pink-500/40"
             style={{
-              left: `${Math.random() * 100}%`,
+              left: heart.left,
               top: `-10%`,
-              fontSize: `${Math.random() * 2 + 0.5}rem`,
-              animation: `fall ${Math.random() * 10 + 10}s linear infinite`,
-              animationDelay: `${Math.random() * 10}s`,
+              fontSize: heart.fontSize,
+              animation: `fall ${heart.animationDuration} linear infinite`,
+              animationDelay: heart.animationDelay,
             }}
           >
             ♥

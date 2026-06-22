@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Scene3NameInput({ onComplete }: { onComplete: () => void }) {
   const [letters, setLetters] = useState<string[]>(['', '', '', '']);
   const [error, setError] = useState(false);
   const targetName = "MAHA";
+  const hasCompleted = useRef(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -36,6 +37,8 @@ export function Scene3NameInput({ onComplete }: { onComplete: () => void }) {
 
   const checkName = (name: string) => {
     if (name === targetName) {
+      if (hasCompleted.current) return; // Prevent double-fire from fast typing
+      hasCompleted.current = true;
       setTimeout(() => onComplete(), 500);
     } else {
       setError(true);

@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useSharedState } from "../SharedState";
 
 export function Scene6Birthday({ onComplete }: { onComplete: () => void }) {
-  const { backgroundImage } = useSharedState();
   const [showNext, setShowNext] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 

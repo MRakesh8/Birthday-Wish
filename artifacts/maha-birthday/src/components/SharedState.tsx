@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect, useRef, ReactNode, useC
 
 interface SharedStateContextType {
   backgroundImage: string | null;
-  setBackgroundImage: (url: string | null) => void;
   isPlaying: boolean;
   setIsPlaying: (playing: boolean) => void;
   playAudio: () => void;
@@ -13,28 +12,40 @@ interface SharedStateContextType {
 const SharedStateContext = createContext<SharedStateContextType | undefined>(undefined);
 
 export function SharedStateProvider({ children }: { children: ReactNode }) {
-  const [backgroundImage, setBackgroundImage] = useState<string | null>('/GB.jpeg');
+  const [backgroundImage] = useState<string | null>('/GB.jpeg');
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const audio = new Audio('/love-reels.mp3');
-    audio.loop = false; // Disable auto replay
+    audio.loop = false;
     audioRef.current = audio;
 
-    const handlePlaySuccess = () => {
-      setIsPlaying(true);
-      cleanUpListeners();
+    // Guard flag to prevent concurrent play() calls
+    let hasPlayed = false;
+    let listenersCleanedUp = false;
+
+    const cleanUpListeners = () => {
+      if (listenersCleanedUp) return;
+      listenersCleanedUp = true;
+      window.removeEventListener('click', attemptPlay);
+      window.removeEventListener('touchstart', attemptPlay);
+      window.removeEventListener('keydown', attemptPlay);
     };
 
     const attemptPlay = () => {
-      if (audioRef.current) {
-        audioRef.current.play()
-          .then(handlePlaySuccess)
-          .catch((err) => {
-            console.log("Audio autoplay block, waiting for interaction", err);
-          });
-      }
+      if (hasPlayed || !audioRef.current) return; // Prevent concurrent play() calls
+      hasPlayed = true;
+
+      audioRef.current.play()
+        .then(() => {
+          setIsPlaying(true);
+          cleanUpListeners();
+        })
+        .catch((err) => {
+          hasPlayed = false; // Allow retry on next interaction
+          console.log("Audio autoplay blocked, waiting for interaction", err);
+        });
     };
 
     const handleEnded = () => {
@@ -42,12 +53,6 @@ export function SharedStateProvider({ children }: { children: ReactNode }) {
     };
 
     audio.addEventListener('ended', handleEnded);
-
-    const cleanUpListeners = () => {
-      window.removeEventListener('click', attemptPlay);
-      window.removeEventListener('touchstart', attemptPlay);
-      window.removeEventListener('keydown', attemptPlay);
-    };
 
     // Try playing immediately
     attemptPlay();
@@ -67,24 +72,25 @@ export function SharedStateProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const playAudio = () => {
+  const playAudio = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.play()
         .then(() => setIsPlaying(true))
         .catch(err => console.error("Error playing audio:", err));
     }
-  };
+  }, []);
 
-  const pauseAudio = () => {
+  const pauseAudio = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
       setIsPlaying(false);
     }
-  };
+  }, []);
 
   const changeAudioSource = useCallback((src: string, autoPlay: boolean = false) => {
     if (audioRef.current) {
       const currentSrc = audioRef.current.src;
+      // Only change source if it's actually different
       if (!currentSrc.endsWith(src)) {
         audioRef.current.pause();
         audioRef.current.src = src;
@@ -95,10 +101,8 @@ export function SharedStateProvider({ children }: { children: ReactNode }) {
         audioRef.current.play()
           .then(() => setIsPlaying(true))
           .catch(err => console.error("Error playing audio after source change:", err));
-      } else {
-        audioRef.current.pause();
-        setIsPlaying(false);
       }
+      // Don't pause if source didn't change and autoPlay is false
     }
   }, []);
 
@@ -106,7 +110,6 @@ export function SharedStateProvider({ children }: { children: ReactNode }) {
     <SharedStateContext.Provider
       value={{
         backgroundImage,
-        setBackgroundImage,
         isPlaying,
         setIsPlaying,
         playAudio,
@@ -126,4 +129,3 @@ export function useSharedState() {
   }
   return context;
 }
-
