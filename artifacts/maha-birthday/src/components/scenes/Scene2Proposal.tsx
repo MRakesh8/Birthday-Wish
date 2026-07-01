@@ -29,7 +29,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   if (showTransitionVideo) {
     return (
       <motion.div
-        className="absolute inset-0 z-20 bg-black flex items-center justify-center"
+        className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, transition: { duration: 1.5 } }}
@@ -53,7 +53,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
       exit={{ opacity: 0, transition: { duration: 1.5 } }}
     >
       {/* Full-screen background video */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <video
           src="/gold-ring-animation.mp4"
           autoPlay

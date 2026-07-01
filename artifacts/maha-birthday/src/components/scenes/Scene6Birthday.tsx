@@ -100,7 +100,7 @@ export function Scene6Birthday({ onComplete }: { onComplete: () => void }) {
       animate={{ opacity: 1, transition: { duration: 1.5 } }}
       exit={{ opacity: 0, transition: { duration: 1.5 } }}
     >
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <video
           src="/hbd-animation.mp4"
           autoPlay
