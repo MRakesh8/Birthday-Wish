@@ -24,7 +24,7 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
           setShowButton(true);
         }, 500);
       }
-    }, 150);
+    }, 60); // Sped up from 150ms to 60ms for faster feel
     return () => {
       clearInterval(interval);
       if (buttonTimeoutRef.current) {

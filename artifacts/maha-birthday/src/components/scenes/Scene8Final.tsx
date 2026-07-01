@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import thankYouImage from "../../assets/thank-you-3.jpeg";
 
 export function Scene8Final() {
-  const [photos, setPhotos] = useState<string[]>(['/thank-you-3.jpeg']);
+  const [photos, setPhotos] = useState<string[]>([thankYouImage]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const blobUrlsRef = useRef<string[]>([]);
@@ -51,7 +52,7 @@ export function Scene8Final() {
     <motion.div 
       className="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 overflow-hidden"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 2 } }}
+      animate={{ opacity: 1, transition: { duration: 0.8 } }}
     >
       {/* Background Gradient */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-900 via-rose-950 to-black" />

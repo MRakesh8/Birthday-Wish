@@ -29,8 +29,8 @@ export function Scene4Letters({ onComplete }: { onComplete: () => void }) {
     <motion.div
       className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 py-6 overflow-y-auto scroll-safe"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 1 } }}
-      exit={{ opacity: 0, transition: { duration: 1 } }}
+      animate={{ opacity: 1, transition: { duration: 0.6 } }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       {/* Title & Progress Hearts Indicator */}
       <motion.div 

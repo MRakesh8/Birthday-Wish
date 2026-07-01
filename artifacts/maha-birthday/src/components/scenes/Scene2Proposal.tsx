@@ -32,7 +32,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
         className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0, transition: { duration: 1.5 } }}
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
       >
         <video
           src="/proposal-success.mp4"
@@ -49,8 +49,8 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
     <motion.div
       className="absolute inset-0 z-10"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 1 } }}
-      exit={{ opacity: 0, transition: { duration: 1.5 } }}
+      animate={{ opacity: 1, transition: { duration: 0.6 } }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       {/* Full-screen background video */}
       <div className="absolute inset-0 z-0 overflow-hidden">

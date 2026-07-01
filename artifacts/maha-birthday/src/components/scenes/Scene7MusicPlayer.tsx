@@ -22,8 +22,8 @@ export function Scene7MusicPlayer({ onComplete }: { onComplete: () => void }) {
     <motion.div
       className="absolute inset-0 flex items-center justify-center z-10 p-4"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 1.5 } }}
-      exit={{ opacity: 0, transition: { duration: 1.5 } }}
+      animate={{ opacity: 1, transition: { duration: 0.6 } }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
