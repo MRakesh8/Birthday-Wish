@@ -37,6 +37,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
         <video
           src="/proposal-success.mp4"
           autoPlay
+          muted
           playsInline
           onEnded={handleVideoEnded}
           className="absolute inset-0 w-full h-full object-cover opacity-50"

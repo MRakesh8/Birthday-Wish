@@ -17,36 +17,9 @@ export function SharedStateProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio('/love-reels.mp3');
+    const audio = new Audio();
     audio.loop = false;
     audioRef.current = audio;
-
-    // Guard flag to prevent concurrent play() calls
-    let hasPlayed = false;
-    let listenersCleanedUp = false;
-
-    const cleanUpListeners = () => {
-      if (listenersCleanedUp) return;
-      listenersCleanedUp = true;
-      window.removeEventListener('click', attemptPlay);
-      window.removeEventListener('touchstart', attemptPlay);
-      window.removeEventListener('keydown', attemptPlay);
-    };
-
-    const attemptPlay = () => {
-      if (hasPlayed || !audioRef.current) return; // Prevent concurrent play() calls
-      hasPlayed = true;
-
-      audioRef.current.play()
-        .then(() => {
-          setIsPlaying(true);
-          cleanUpListeners();
-        })
-        .catch((err) => {
-          hasPlayed = false; // Allow retry on next interaction
-          console.log("Audio autoplay blocked, waiting for interaction", err);
-        });
-    };
 
     const handleEnded = () => {
       setIsPlaying(false);
@@ -54,16 +27,7 @@ export function SharedStateProvider({ children }: { children: ReactNode }) {
 
     audio.addEventListener('ended', handleEnded);
 
-    // Try playing immediately
-    attemptPlay();
-
-    // Setup interaction listeners to play on first user action
-    window.addEventListener('click', attemptPlay);
-    window.addEventListener('touchstart', attemptPlay);
-    window.addEventListener('keydown', attemptPlay);
-
     return () => {
-      cleanUpListeners();
       if (audioRef.current) {
         audio.removeEventListener('ended', handleEnded);
         audioRef.current.pause();
