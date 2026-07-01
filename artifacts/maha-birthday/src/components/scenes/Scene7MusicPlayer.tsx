@@ -88,7 +88,7 @@ export function Scene7MusicPlayer({ onComplete }: { onComplete: () => void }) {
 
         <button
           onClick={onComplete}
-          className="px-8 py-3 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif font-bold tracking-widest text-base sm:text-lg shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all active:scale-95"
+          className="w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif font-bold tracking-widest text-base sm:text-lg md:text-xl shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all active:scale-95"
           style={{ marginBottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))' }}
         >
           Thank you ♥

@@ -115,7 +115,7 @@ export function Scene6Birthday({ onComplete }: { onComplete: () => void }) {
       <canvas ref={canvasRef} className="absolute inset-0 z-10 pointer-events-none" />
 
       <motion.div
-        className="absolute left-0 right-0 z-20 flex justify-center"
+        className="absolute left-0 right-0 z-20 flex justify-center px-4"
         style={{ bottom: 'max(2.5rem, env(safe-area-inset-bottom, 2.5rem))' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: showNext ? 1 : 0 }}
@@ -124,7 +124,7 @@ export function Scene6Birthday({ onComplete }: { onComplete: () => void }) {
         {showNext && (
           <button
             onClick={onComplete}
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-serif tracking-wide text-base sm:text-lg shadow-[0_0_20px_rgba(255,100,150,0.5)] hover:shadow-[0_0_30px_rgba(255,100,150,0.8)] transition-all active:scale-95"
+            className="w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-serif tracking-wide text-base sm:text-lg md:text-xl shadow-[0_0_20px_rgba(255,100,150,0.5)] hover:shadow-[0_0_30px_rgba(255,100,150,0.8)] transition-all active:scale-95"
           >
             Next ♥
           </button>

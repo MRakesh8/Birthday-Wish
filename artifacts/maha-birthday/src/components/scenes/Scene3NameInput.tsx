@@ -101,14 +101,14 @@ export function Scene3NameInput({ onComplete }: { onComplete: () => void }) {
             <button
               key={char}
               onClick={() => addLetter(char)}
-              className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-stone-700/60 border border-amber-700/40 text-white text-sm sm:text-base font-sans hover:bg-amber-700/50 hover:scale-110 active:scale-95 transition-all"
+              className="w-[8.5vw] h-[8.5vw] min-w-[32px] min-h-[32px] max-w-[48px] max-h-[48px] sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-stone-700/60 border border-amber-700/40 text-white text-xs sm:text-sm md:text-base font-sans hover:bg-amber-700/50 hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
             >
               {char}
             </button>
           ))}
           <button
             onClick={removeLetter}
-            className="px-3 h-9 sm:h-10 md:h-12 rounded-full bg-stone-700/60 border border-amber-700/40 text-white font-sans hover:bg-amber-700/50 active:scale-95 transition-all text-sm"
+            className="px-3 h-[8.5vw] min-h-[32px] max-h-[48px] sm:h-10 md:h-12 rounded-full bg-stone-700/60 border border-amber-700/40 text-white font-sans hover:bg-amber-700/50 active:scale-95 transition-all text-xs sm:text-sm flex items-center justify-center"
           >
             ⌫
           </button>

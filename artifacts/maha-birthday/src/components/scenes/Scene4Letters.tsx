@@ -39,7 +39,7 @@ export function Scene4Letters({ onComplete }: { onComplete: () => void }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="font-serif text-2xl sm:text-3xl text-pink-100 mb-2 tracking-wide" style={{ textShadow: '0 0 15px rgba(255,182,193,0.9), 0 0 35px rgba(255,150,170,0.6), 0 2px 4px rgba(0,0,0,0.5)' }}>
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-pink-100 mb-2 tracking-wide" style={{ textShadow: '0 0 15px rgba(255,182,193,0.9), 0 0 35px rgba(255,150,170,0.6), 0 2px 4px rgba(0,0,0,0.5)' }}>
           Letters of My Heart
         </h2>
         <p className="font-sans text-xs sm:text-sm text-white/90 italic flex items-center justify-center gap-2" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
@@ -135,7 +135,7 @@ export function Scene4Letters({ onComplete }: { onComplete: () => void }) {
               exit={{ opacity: 0, y: 15, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               onClick={onComplete}
-              className="px-10 py-3 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-serif tracking-widest text-base sm:text-lg shadow-[0_0_20px_rgba(244,63,94,0.4)] hover:shadow-[0_0_35px_rgba(244,63,94,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer animate-pulse"
+              className="w-[min(100%,280px)] sm:w-auto px-8 py-3 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-serif tracking-widest text-base sm:text-lg md:text-xl shadow-[0_0_20px_rgba(244,63,94,0.4)] hover:shadow-[0_0_35px_rgba(244,63,94,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer animate-pulse"
               style={{ animationDuration: '3s' }}
             >
               Continue ♥

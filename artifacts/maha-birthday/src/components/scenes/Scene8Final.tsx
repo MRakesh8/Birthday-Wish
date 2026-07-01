@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Scene8Final() {
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<string[]>(['/thank-you-3.jpeg']);
   const [currentIndex, setCurrentIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const blobUrlsRef = useRef<string[]>([]);
@@ -85,23 +85,7 @@ export function Scene8Final() {
       `}</style>
 
       <div className="relative z-10 flex flex-col items-center w-full max-w-2xl">
-        <motion.h1 
-          className="font-serif italic font-light text-5xl md:text-7xl text-white glow-text mb-2 tracking-wide"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          Thank you
-        </motion.h1>
-        
-        <motion.h2 
-          className="font-serif text-4xl md:text-5xl text-pink-200 mb-12 glow-text"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-        >
-          Maha ♥
-        </motion.h2>
+
 
         {/* Slideshow */}
         <div className="w-full aspect-[4/3] max-w-md relative mb-8 perspective-1000">
@@ -128,14 +112,6 @@ export function Scene8Final() {
             </AnimatePresence>
           </div>
         </div>
-
-        <input type="file" accept="image/*" multiple className="hidden" ref={fileInputRef} onChange={handlePhotoUpload} />
-        <button 
-          onClick={() => fileInputRef.current?.click()}
-          className="px-6 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 font-sans text-sm hover:bg-white/10 hover:text-white transition-all backdrop-blur-sm"
-        >
-          Add Photos
-        </button>
 
         <p className="absolute bottom-4 text-pink-300/50 font-sans italic text-sm text-center w-full">
           Made with ♥ for Maha

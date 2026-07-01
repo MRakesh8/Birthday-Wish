@@ -3,7 +3,18 @@ import { motion } from "framer-motion";
 
 export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   const [showTransitionVideo, setShowTransitionVideo] = useState(false);
+  const [noPos, setNoPos] = useState({ x: 0, y: 0, isMoved: false });
   const hasCompleted = useRef(false);
+
+  const moveButton = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    // Generate random coordinates between 10% and 90% of the screen to stay visible
+    const randomX = Math.random() * 80 + 10; 
+    const randomY = Math.random() * 80 + 10;
+    setNoPos({ x: randomX, y: randomY, isMoved: true });
+  };
 
   const handleClick = () => {
     setShowTransitionVideo(true);
@@ -26,7 +37,6 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
         <video
           src="/proposal-success.mp4"
           autoPlay
-          muted
           playsInline
           onEnded={handleVideoEnded}
           className="absolute inset-0 w-full h-full object-cover opacity-50"
@@ -61,7 +71,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
 
         {/* Top — Title */}
         <motion.h1
-          className="font-serif italic text-3xl sm:text-5xl md:text-6xl text-white glow-gold leading-tight w-full text-center"
+          className="font-serif italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white glow-gold leading-tight w-full text-center px-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -71,21 +81,32 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
 
         {/* Bottom — Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full max-w-xs sm:max-w-none"
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full px-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
         >
           <button
             onClick={handleClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all duration-300 hover:scale-105 active:scale-95"
+            className="w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:shadow-[0_0_35px_rgba(180,120,30,0.9)] transition-all duration-300 hover:scale-105 active:scale-95"
           >
             YES ♥
           </button>
 
           <button
-            onClick={handleClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-stone-600 to-amber-700 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(140,100,30,0.5)] hover:shadow-[0_0_35px_rgba(140,100,30,0.8)] transition-all duration-300 hover:scale-105 active:scale-95"
+            onMouseEnter={moveButton}
+            onTouchStart={moveButton}
+            style={noPos.isMoved ? { 
+              position: 'fixed',
+              left: `${noPos.x}%`,
+              top: `${noPos.y}%`,
+              transform: 'translate(-50%, -50%)',
+              transition: 'left 0.2s ease-out, top 0.2s ease-out',
+              zIndex: 50
+            } : {
+              zIndex: 50
+            }}
+            className="w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-stone-600 to-amber-700 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(140,100,30,0.5)] hover:shadow-[0_0_35px_rgba(140,100,30,0.8)] cursor-not-allowed"
           >
             AFFIRMATIVE ♥
           </button>
