@@ -10,10 +10,6 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
   const buttonTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    changeAudioSource('/love-reels.mp3', false);
-  }, [changeAudioSource]);
-
-  useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
       setText(fullText.slice(0, i + 1));
@@ -34,7 +30,6 @@ export function Scene1Loading({ onComplete }: { onComplete: () => void }) {
   }, []);
 
   const handleStart = () => {
-    playAudio();
     onComplete();
   };
 

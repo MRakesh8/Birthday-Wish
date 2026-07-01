@@ -22,7 +22,7 @@ function AppContent() {
   // Smart asset prefetching: delays heavy downloads until after initial render
   useEffect(() => {
     const timer = setTimeout(() => {
-      const videos = ["/gold-ring-animation.mp4", "/proposal-success.mp4", "/hbd-animation.mp4", "/birthday-animation.mp4"];
+      const videos = ["/gold-ring-animation.mp4", "/proposal-success.mp4", "/hbd-animation.mp4"];
       videos.forEach(src => {
         const link = document.createElement('link');
         link.rel = 'preload';
@@ -30,7 +30,7 @@ function AppContent() {
         link.href = src;
         document.head.appendChild(link);
       });
-      const images = ["/thank-you-3.jpeg", "/play-song.png"];
+      const images = ["/play-song.png"];
       images.forEach(src => {
         const img = new Image();
         img.src = src;
