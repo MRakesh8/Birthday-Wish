@@ -94,23 +94,26 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
             YES ♥
           </button>
 
-          <button
+          <div
             onMouseEnter={moveButton}
             onTouchStart={moveButton}
-            style={noPos.isMoved ? { 
-              position: 'fixed',
-              left: `${noPos.x}%`,
-              top: `${noPos.y}%`,
-              transform: 'translate(-50%, -50%)',
-              transition: 'left 0.2s ease-out, top 0.2s ease-out',
-              zIndex: 50
-            } : {
-              zIndex: 50
+            style={{
+              WebkitTapHighlightColor: 'transparent',
+              ...(noPos.isMoved ? { 
+                position: 'fixed',
+                left: `${noPos.x}%`,
+                top: `${noPos.y}%`,
+                transform: 'translate(-50%, -50%)',
+                transition: 'left 0.2s ease-out, top 0.2s ease-out',
+                zIndex: 50
+              } : {
+                zIndex: 50
+              })
             }}
-            className="w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-stone-600 to-amber-700 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(140,100,30,0.5)] hover:shadow-[0_0_35px_rgba(140,100,30,0.8)] cursor-not-allowed"
+            className="flex items-center justify-center w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-stone-600 to-amber-700 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(140,100,30,0.5)] hover:shadow-[0_0_35px_rgba(140,100,30,0.8)] cursor-not-allowed select-none"
           >
             No
-          </button>
+          </div>
         </motion.div>
 
       </div>
