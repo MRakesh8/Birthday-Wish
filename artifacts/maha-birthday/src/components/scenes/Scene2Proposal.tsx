@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import successVideo from '../../assets/Ring.mp4';
 
 export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   const [showTransitionVideo, setShowTransitionVideo] = useState(false);
@@ -29,18 +30,18 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   if (showTransitionVideo) {
     return (
       <motion.div
-        className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+        className="absolute inset-0 z-20 flex items-center justify-center bg-black backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, transition: { duration: 0.5 } }}
       >
         <video
-          src="/proposal-success.mp4"
+          src={successVideo}
           autoPlay
           muted
           playsInline
           onEnded={handleVideoEnded}
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          className="absolute inset-0 w-full h-full object-contain"
         />
       </motion.div>
     );
