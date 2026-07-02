@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import successVideo from '../../assets/Ring.mp4';
+import successVideo from '../../assets/Ring_optimized.mp4';
 
 export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   const [showTransitionVideo, setShowTransitionVideo] = useState(false);
