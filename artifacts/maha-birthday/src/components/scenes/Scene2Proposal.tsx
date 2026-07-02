@@ -22,8 +22,14 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
     setShowTransitionVideo(true);
   };
 
+  const [videoEnded, setVideoEnded] = useState(false);
+
   const handleVideoEnded = () => {
-    if (hasCompleted.current) return; // Prevent double-fire
+    setVideoEnded(true);
+  };
+
+  const handleContinue = () => {
+    if (hasCompleted.current) return;
     hasCompleted.current = true;
     onComplete();
   };
@@ -31,7 +37,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   if (showTransitionVideo) {
     return (
       <motion.div
-        className="absolute inset-0 z-20 flex items-center justify-center bg-black backdrop-blur-sm"
+        className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, transition: { duration: 0.5 } }}
@@ -43,6 +49,17 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
           onEnded={handleVideoEnded}
           className="absolute inset-0 w-full h-full object-contain"
         />
+        
+        {videoEnded && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={handleContinue}
+            className="z-30 absolute bottom-12 px-8 py-4 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 text-white font-serif tracking-widest text-lg shadow-[0_0_20px_rgba(180,120,30,0.6)] hover:scale-105 active:scale-95 transition-all"
+          >
+            Continue ♥
+          </motion.button>
+        )}
       </motion.div>
     );
   }
