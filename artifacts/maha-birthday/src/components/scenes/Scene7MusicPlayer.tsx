@@ -4,7 +4,7 @@ import { useSharedState } from "../SharedState";
 
 export function Scene7MusicPlayer({ onComplete }: { onComplete: () => void }) {
   const { backgroundImage, isPlaying, playAudio, pauseAudio, changeAudioSource } = useSharedState();
-  const playerImage = '/play-song.png';
+  const playerImage = '/maha-player.jpeg';
 
   useEffect(() => {
     changeAudioSource('/I-Wanna-Be-Yours-Arctic-Monkeys-_-__-Lyrics-Status-Video-_-__-_shorts-_lyrics-_foryou_MP3_160K_.mp3.mp3.mpeg', true);
