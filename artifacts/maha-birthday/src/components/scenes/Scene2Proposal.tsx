@@ -38,7 +38,6 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
         <video
           src={successVideo}
           autoPlay
-          muted
           playsInline
           onEnded={handleVideoEnded}
           className="absolute inset-0 w-full h-full object-contain"
@@ -110,7 +109,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
             }}
             className="w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-stone-600 to-amber-700 text-white font-serif tracking-widest text-lg md:text-xl shadow-[0_0_20px_rgba(140,100,30,0.5)] hover:shadow-[0_0_35px_rgba(140,100,30,0.8)] cursor-not-allowed"
           >
-            AFFIRMATIVE ♥
+            No
           </button>
         </motion.div>
 
