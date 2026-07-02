@@ -10,6 +10,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
   const moveButton = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
       e.preventDefault();
+      e.stopPropagation();
     }
     // Generate random coordinates between 10% and 90% of the screen to stay visible
     const randomX = Math.random() * 80 + 10; 
@@ -82,7 +83,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
 
         {/* Bottom — Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full px-4"
+          className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-center justify-center w-full px-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
