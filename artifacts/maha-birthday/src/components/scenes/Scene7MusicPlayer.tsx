@@ -41,8 +41,8 @@ export function Scene7MusicPlayer({ onComplete }: { onComplete: () => void }) {
       <div className="relative z-10 flex flex-col items-center">
 
         {/* Circular Player — responsive size */}
-        <div className="relative mb-6 sm:mb-8 flex items-center justify-center"
-          style={{ width: 'min(72vw, 288px)', height: 'min(72vw, 288px)' }}
+        <div className="relative mb-6 sm:mb-8 flex items-center justify-center shrink-0"
+          style={{ width: 'min(72vw, 288px, 40vh)', height: 'min(72vw, 288px, 40vh)' }}
         >
           {/* Spinning dashed ring */}
           <motion.div

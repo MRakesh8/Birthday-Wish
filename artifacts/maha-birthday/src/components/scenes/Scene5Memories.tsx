@@ -83,7 +83,7 @@ export function Scene5Memories({ onComplete }: { onComplete: () => void }) {
       </div>
 
       {/* Card */}
-      <div className="glass-card w-full max-w-2xl rounded-2xl p-4 sm:p-6 md:p-10 z-10 flex flex-col relative scrollbar-hide"
+      <div className="glass-card w-full max-w-2xl rounded-2xl p-4 pb-12 sm:p-6 md:p-10 z-10 flex flex-col relative scrollbar-hide"
         style={{ maxHeight: 'calc(100dvh - 32px)', overflowY: 'auto' }}
       >
         <div className="space-y-3 sm:space-y-4 mb-6">

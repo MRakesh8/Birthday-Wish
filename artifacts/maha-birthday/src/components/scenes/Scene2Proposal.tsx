@@ -90,7 +90,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
 
         {/* Top — Title */}
         <motion.h1
-          className="font-serif italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white glow-gold leading-tight w-full text-center px-4"
+          className="font-serif italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white glow-gold leading-tight w-full text-center px-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}

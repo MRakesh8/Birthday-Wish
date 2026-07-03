@@ -99,15 +99,15 @@ export function Scene4Letters({ onComplete }: { onComplete: () => void }) {
               </div>
 
               {/* Back Side */}
-              <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-rose-950/90 to-pink-900/90 border-2 border-pink-400/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xl overflow-hidden">
+              <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-rose-950/90 to-pink-900/90 border-2 border-pink-400/40 rounded-2xl p-2 sm:p-4 flex flex-col items-center justify-center text-center shadow-xl overflow-hidden">
                 {/* Decorative inner border */}
-                <div className="absolute inset-2 border border-dashed border-pink-300/25 rounded-xl pointer-events-none" />
+                <div className="absolute inset-1 sm:inset-2 border border-dashed border-pink-300/25 rounded-xl pointer-events-none" />
 
                 <div className="text-2xl sm:text-3xl font-script text-amber-300 glow-gold mb-2 select-none">
                   {card.letter}
                 </div>
 
-                <p className="font-serif italic text-xs sm:text-sm md:text-base text-white/95 leading-relaxed max-w-[90%] mb-1 select-none">
+                <p className="font-serif italic text-[10px] min-[375px]:text-xs sm:text-sm md:text-base text-white/95 leading-tight sm:leading-relaxed max-w-[95%] mb-1 select-none">
                   "{card.text}"
                 </p>
 
