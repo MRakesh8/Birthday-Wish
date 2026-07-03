@@ -12,9 +12,10 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
       e.preventDefault();
       e.stopPropagation();
     }
-    // Generate random coordinates between 10% and 90% of the screen to stay visible
+    // Generate random coordinates: X between 10%-90%, Y between 10%-60%
+    // Restricting Y to 60% ensures the No button NEVER goes near the YES button at the bottom
     const randomX = Math.random() * 80 + 10; 
-    const randomY = Math.random() * 80 + 10;
+    const randomY = Math.random() * 50 + 10;
     setNoPos({ x: randomX, y: randomY, isMoved: true });
   };
 
