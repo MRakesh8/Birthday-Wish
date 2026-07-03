@@ -47,7 +47,7 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
           autoPlay
           playsInline
           onEnded={handleVideoEnded}
-          className="absolute inset-0 w-full h-full object-contain"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         
         {videoEnded && (
