@@ -112,9 +112,20 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
             YES ♥
           </button>
 
+          {/* Invisible placeholder keeps the layout from collapsing when No button becomes fixed */}
+          {noPos.isMoved && (
+            <div className="flex items-center justify-center w-[min(100%,280px)] sm:w-auto px-6 py-3 sm:px-8 sm:py-4 invisible select-none">
+              No
+            </div>
+          )}
+
           <div
             onMouseEnter={moveButton}
             onTouchStart={moveButton}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             style={{
               WebkitTapHighlightColor: 'transparent',
               ...(noPos.isMoved ? { 
