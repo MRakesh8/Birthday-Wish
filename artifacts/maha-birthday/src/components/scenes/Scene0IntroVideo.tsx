@@ -23,7 +23,6 @@ export function Scene0IntroVideo({ onComplete }: { onComplete: () => void }) {
         className="w-full h-full object-contain"
         autoPlay
         playsInline
-        muted // Muted is usually required for autoplay to work without user interaction
         onEnded={onComplete}
       />
     </motion.div>
