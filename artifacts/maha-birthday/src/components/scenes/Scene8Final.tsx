@@ -59,7 +59,7 @@ export function Scene8Final() {
           <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
             <video
               src="/end.mp4"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               autoPlay
               playsInline
               muted={false}

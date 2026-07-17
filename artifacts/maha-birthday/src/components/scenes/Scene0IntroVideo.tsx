@@ -35,7 +35,7 @@ export function Scene0IntroVideo({ onComplete }: { onComplete: () => void }) {
       <video
         ref={videoRef}
         src="/first.mp4"
-        className="w-full h-full object-contain"
+        className="w-full h-full object-cover"
         autoPlay
         playsInline
         onEnded={onComplete}
