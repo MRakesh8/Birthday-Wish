@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import thankYouImage from "../../assets/thank-you-3.jpeg";
 
 export function Scene8Final() {
+  const [videoFinished, setVideoFinished] = useState(false);
   const [photos, setPhotos] = useState<string[]>([thankYouImage]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,70 +55,81 @@ export function Scene8Final() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 0.8 } }}
     >
-      {/* Background Gradient */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-900 via-rose-950 to-black" />
-      
-      {/* Falling Hearts */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {heartPositions.map((heart) => (
-          <div
-            key={heart.id}
-            className="absolute text-pink-500/40"
-            style={{
-              left: heart.left,
-              top: `-10%`,
-              fontSize: heart.fontSize,
-              animation: `fall ${heart.animationDuration} linear infinite`,
-              animationDelay: heart.animationDelay,
-            }}
-          >
-            ♥
+        {!videoFinished ? (
+          <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+            <video
+              src="/end.mp4"
+              className="w-full h-full object-contain"
+              autoPlay
+              playsInline
+              onEnded={() => setVideoFinished(true)}
+            />
           </div>
-        ))}
-      </div>
-      
-      <style>{`
-        @keyframes fall {
-          0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-          10% { opacity: 0.6; }
-          90% { opacity: 0.6; }
-          100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-      `}</style>
-
-      <div className="relative z-10 flex flex-col items-center w-full max-w-2xl">
-
-
-        {/* Slideshow */}
-        <div className="w-full aspect-[4/3] max-w-md relative mb-8 perspective-1000">
-          <div className="w-full h-full relative flex items-center justify-center">
-            <AnimatePresence mode="popLayout">
-              {displayPhotos.length > 0 && (
-                <motion.div
-                  key={currentIndex}
-                  className="absolute inset-0 glass-card rounded-2xl overflow-hidden shadow-2xl border-rose-300/30 border p-2"
-                  initial={{ opacity: 0, x: 100, rotateY: -15 }}
-                  animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                  exit={{ opacity: 0, x: -100, rotateY: 15 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
+        ) : (
+          <>
+            {/* Background Gradient */}
+            <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-900 via-rose-950 to-black" />
+            
+            {/* Falling Hearts */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+              {heartPositions.map((heart) => (
+                <div
+                  key={heart.id}
+                  className="absolute text-pink-500/40"
+                  style={{
+                    left: heart.left,
+                    top: `-10%`,
+                    fontSize: heart.fontSize,
+                    animation: `fall ${heart.animationDuration} linear infinite`,
+                    animationDelay: heart.animationDelay,
+                  }}
                 >
-                  {displayPhotos[currentIndex] ? (
-                    <img src={displayPhotos[currentIndex] as string} className="w-full h-full object-cover rounded-xl" alt="Memory" />
-                  ) : (
-                    <div className="w-full h-full bg-rose-950/40 rounded-xl flex items-center justify-center border border-dashed border-rose-400/20">
-                      <span className="text-4xl text-pink-500/30">♥</span>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+                  ♥
+                </div>
+              ))}
+            </div>
+            
+            <style>{`
+              @keyframes fall {
+                0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+                10% { opacity: 0.6; }
+                90% { opacity: 0.6; }
+                100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+              }
+            `}</style>
 
-        <p className="absolute bottom-4 text-pink-300/50 font-sans italic text-sm text-center w-full">
-          Made with ♥ for Maha
-        </p>
-      </div>
+            <div className="relative z-10 flex flex-col items-center w-full max-w-2xl">
+              <div className="w-full aspect-[4/3] max-w-md relative mb-8 perspective-1000">
+                <div className="w-full h-full relative flex items-center justify-center">
+                  <AnimatePresence mode="popLayout">
+                    {displayPhotos.length > 0 && (
+                      <motion.div
+                        key={currentIndex}
+                        className="absolute inset-0 glass-card rounded-2xl overflow-hidden shadow-2xl border-rose-300/30 border p-2"
+                        initial={{ opacity: 0, x: 100, rotateY: -15 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        exit={{ opacity: 0, x: -100, rotateY: 15 }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                      >
+                        {displayPhotos[currentIndex] ? (
+                          <img src={displayPhotos[currentIndex] as string} className="w-full h-full object-cover rounded-xl" alt="Memory" />
+                        ) : (
+                          <div className="w-full h-full bg-rose-950/40 rounded-xl flex items-center justify-center border border-dashed border-rose-400/20">
+                            <span className="text-4xl text-pink-500/30">♥</span>
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              <p className="absolute bottom-4 text-pink-300/50 font-sans italic text-sm text-center w-full">
+                Made with ♥ for Maha
+              </p>
+            </div>
+          </>
+        )}
     </motion.div>
   );
 }

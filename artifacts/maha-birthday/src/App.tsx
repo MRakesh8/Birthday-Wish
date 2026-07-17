@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect, Suspense, lazy } from "react";
 import { SharedStateProvider } from "./components/SharedState";
 import { FloatingHearts } from "./components/FloatingHearts";
+import { Scene0IntroVideo } from "./components/scenes/Scene0IntroVideo";
 import { Scene1Loading } from "./components/scenes/Scene1Loading";
 import { AnimatePresence } from "framer-motion";
 
@@ -16,7 +17,7 @@ const Scene8Final = lazy(() => import("./components/scenes/Scene8Final").then(m 
 const TOTAL_SCENES = 8;
 
 function AppContent() {
-  const [currentScene, setCurrentScene] = useState(1);
+  const [currentScene, setCurrentScene] = useState(0);
   const isTransitioning = useRef(false);
 
   // Smart asset prefetching: delays heavy downloads until after initial render
@@ -67,6 +68,7 @@ function AppContent() {
 
       <FloatingHearts />
       <AnimatePresence mode="wait">
+        {currentScene === 0 && <Scene0IntroVideo key="scene0" onComplete={nextScene} />}
         {currentScene === 1 && <Scene1Loading key="scene1" onComplete={nextScene} />}
         {currentScene === 2 && (
           <Suspense fallback={<div key="scene2" className="absolute inset-0" />}>
