@@ -72,7 +72,19 @@ export function Scene2Proposal({ onComplete }: { onComplete: () => void }) {
       animate={{ opacity: 1, transition: { duration: 0.6 } }}
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
-
+      {/* Full-screen background video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          src="/proposal-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Subtle dark overlay so text stays readable */}
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
       {/* Content on top */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-between px-6 text-center pt-10 sm:pt-14 pb-12 sm:pb-16">
