@@ -23,7 +23,8 @@ function AppContent() {
   // Smart asset prefetching: delays heavy downloads until after initial render
   useEffect(() => {
     const timer = setTimeout(() => {
-      const videos = ["/gold-ring-animation.mp4", "/proposal-success.mp4", "/hbd-animation.mp4"];
+      // Preload videos that are actually used and exist
+      const videos = ["/hbd-animation.mp4", "/end.mp4"];
       videos.forEach(src => {
         const link = document.createElement('link');
         link.rel = 'preload';
@@ -31,12 +32,7 @@ function AppContent() {
         link.href = src;
         document.head.appendChild(link);
       });
-      const images = ["/play-song.png"];
-      images.forEach(src => {
-        const img = new Image();
-        img.src = src;
-      });
-    }, 1500); 
+    }, 1000); // Trigger slightly earlier for better perceived speed
     return () => clearTimeout(timer);
   }, []);
 
@@ -56,14 +52,14 @@ function AppContent() {
 
   return (
     <div className="relative w-full h-[100dvh] bg-background overflow-hidden selection:bg-pink-500/30">
-      {/* Global Background Image (GB.jpeg) */}
+      {/* Global Background Image (maha-bg.jpeg) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="/GB.jpeg"
+          src="/maha-bg.jpeg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center bg-zoom"
+          className="absolute inset-0 w-full h-full object-cover object-center bg-zoom opacity-50"
         />
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
       </div>
 
       <FloatingHearts />
