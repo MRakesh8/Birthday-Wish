@@ -62,6 +62,7 @@ export function Scene8Final() {
               className="w-full h-full object-contain"
               autoPlay
               playsInline
+              muted={false}
               onEnded={() => setVideoFinished(true)}
             />
           </div>
